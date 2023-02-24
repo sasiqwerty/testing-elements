@@ -4,9 +4,41 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<style>
+			body > * {
+				border: 1px solid black;
+			}
+			.quiz-main-container {
+				display: none;
+			}
+			.heading {
+				display: flex;
+				flex-direction: row;
+			}
+			.score-display {
+				display: none;
+			}
+			.score-output {
+				display: none;
+			}
+			#score-output {
+				background-color: #11cc1ac2;
+				border-radius: 0.75rem;
+				padding: 0.25rem;
+				margin: 0.25rem;
+			}
+		</style>
 		<title>Quiz</title>
 	</head>
 	<body>
+		<div class="heading">
+			<h1>Quiz</h1>
+
+			<div class="score-display">
+				<p><span id="score-output">10</span></p>
+			</div>
+		</div>
 		<div class="quiz-main-container">
 			<div>
 				<p id="question1">Display the question here</p>
@@ -23,7 +55,16 @@
 			<div>
 				<p id="option4">This is the option4</p>
 			</div>
+			<div class="buttons">
+				<input type="button" value="Next Question" onclick="" />
+				<input type="button" value="Reset" onclick="resetProgram()" />
+			</div>
 		</div>
+		<input
+			type="button"
+			value="Start"
+			onclick="startProgram()"
+			id="start-button" />
 
 		<script>
 			//declarations for the questions and answers
@@ -32,6 +73,7 @@
 			const option2 = document.getElementById("option2");
 			const option3 = document.getElementById("option3");
 			const option4 = document.getElementById("option4");
+
 			// event listeners for options
 			option1.addEventListener("click", touchElement);
 			option2.addEventListener("click", touchElement);
@@ -72,10 +114,33 @@
 					],
 				},
 			];
+			const optionList = [option1, option2, option3, option4];
 			// simple functions
+			function startProgram() {
+				const quizMainContainer = document.querySelector(
+					".quiz-main-container"
+				);
+				quizMainContainer.style.display = "block";
+				displayQuiz();
+			}
 
-			function displayQuestion() {}
-			function displayOption() {}
+			function displayQuiz() {
+				const startButton = document.getElementById("start-button");
+				startButton.style.display = "none";
+				const score = document.querySelector(".score-display");
+				score.style.display = "flex";
+				const question = document.getElementById("question1");
+				const option1 = document.getElementById("option1");
+				const option2 = document.getElementById("option2");
+				const option3 = document.getElementById("option3");
+				const option4 = document.getElementById("option4");
+				question.innerText = Questions[0].q;
+
+				for (let index = 0; index < 4; index++) {
+					optionList[index].innerText = Questions[0].a[index].text;
+				}
+			}
+
 			// touch element function
 			function touchElement() {
 				let id = event.target.id;
@@ -86,7 +151,10 @@
 						" " +
 						"and the output is returned as a " +
 						typeof output.id +
-						" datatype."
+						" datatype." +
+						"\n" +
+						"the contents are " +
+						output.innerText
 				);
 				return output.id;
 			}
@@ -103,7 +171,9 @@
 				element.style.backgroundColor = "green";
 			}
 			// big function
-
+			function resetProgram() {
+				location.reload();
+			}
 			// end of the script
 		</script>
 	</body>
