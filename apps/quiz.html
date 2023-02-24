@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Quiz</title>
+	</head>
+	<body>
+		<div>
+			<p id="question">Display the question here</p>
+		</div>
+		<div>
+			<p id="option1">option1</p>
+		</div>
+		<div>
+			<p id="option2">option2</p>
+		</div>
+		<div>
+			<p id="option3">option3</p>
+		</div>
+		<div>
+			<p id="option4">option4</p>
+		</div>
+
+		<script>
+			function touch(evt) {
+				let id = evt.target.id;
+				let output = document.getElementById(id);
+				console.log(output.innerText);
+				return output;
+			}
+			const option1 = document.getElementById("option1");
+			const option2 = document.getElementById("option2");
+			const option3 = document.getElementById("option3");
+			const option4 = document.getElementById("option4");
+
+			option1.addEventListener("click", touch);
+			option2.addEventListener("click", touch);
+			option3.addEventListener("click", touch);
+			option4.addEventListener("click", touch);
+		</script>
+	</body>
+</html>

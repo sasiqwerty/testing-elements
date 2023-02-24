@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weight</title>
+		<style>
+			#output-span {
+				background-color: rgba(235, 48, 48, 0.411);
+				margin: 0.1rem;
+				padding: 0.1rem;
+				border-radius: 0.25rem;
+			}
+		</style>
+	</head>
+	<body id="body">
+		<h1 id="heading-bmi">Weight Converter</h1>
+
+		<label
+			>Enter your weight in kilos
+			<input id="weight" type="number" value="12" size="25" />
+		</label>
+		<input type="button" value="Convert to pounds" onclick="output()" />
+
+		<!-- The code output of the program -->
+		<p id="output-1">Your weight in pounds : <span id="output-span"></span></p>
+		<!-- The explanation of the code and its inner workings -->
+		<div>
+			<br />
+			<br />
+			<h2>Logic</h2>
+			<ul>
+				<li>An input element is created to capture the data from the user</li>
+				<li>A button is created and a function is attached to that button</li>
+				<li>
+					The function reads the input entered by the user and converts it into
+					pounds using simple math
+				</li>
+				<li>
+					The output element is a span element, when the function is executed
+					the output text is generated.
+				</li>
+			</ul>
+		</div>
+		<script>
+			const body = document.getElementById("body");
+			function output() {
+				let outputSpan = document.getElementById("output-span");
+				let kgWeightInput = document.getElementById("weight");
+				let kgWeight = kgWeightInput.value;
+				let poundWeight = kgWeight * 2.2;
+				outputSpan.innerText = Math.round(poundWeight) + ` lb`;
+
+				console.log(
+					`This function converts the user input in kilos to pounds` +
+						`\n` +
+						`The weight in kilos ` +
+						kgWeight +
+						`\n` +
+						`The weight in pounds ` +
+						poundWeight
+				);
+			}
+		</script>
+		<!-- The input element has a keyboard focusable part and it can controlled to advance forward or backward based on the up and down arrow key, a function has to be written such that when the information is updated the output should also updated in real time without the need to press the button constantly  -->
+	</body>
+</html>
