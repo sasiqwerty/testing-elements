@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Applications</title>
-  </head>
-  <body> </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Applications</title>
+	</head>
+	<body>
+		<h3>Reference</h3>
+		<li><a href="./reference/scope.md">scope</a></li>
+		<li>
+			<a href="./reference/events.md">events</a>
+		</li>
+		<button id="color-change" onclick="colorRandom()">
+			Click me to change color
+		</button>
+		<script>
+			const button = document.getElementById("color-change");
+			function randomNumber(number) {
+				let output = Math.floor(Math.random(number) * (number + 1));
+
+				return output;
+			}
+			function colorRandom() {
+				const rndCol = `rgb(${randomNumber(255)}, ${randomNumber(
+					255
+				)}, ${randomNumber(255)})`;
+				console.log(rndCol);
+				document.body.style.backgroundColor = rndCol;
+			}
+			button.addEventListener("mouseout", colorRandom);
+		</script>
+	</body>
 </html>
