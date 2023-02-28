@@ -5,67 +5,43 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+		<title>Quiz</title>
 		<style>
-			body > * {
-				border: 1px solid black;
+			body {
+				font-size: 20px;
+				font-family: sans-serif;
+				color: #333;
+				background-color: rgb(196, 208, 212);
 			}
-			.quiz-main-container {
-				display: none;
+			.question {
+				font-weight: 600;
 			}
-			.heading {
-				display: flex;
-				flex-direction: row;
+			.answers {
+				margin-bottom: 20px;
 			}
-			.score-display {
-				display: none;
+			.answers label {
+				display: block;
 			}
-			.score-output {
-				display: none;
+			#submit {
+				font-family: sans-serif;
+				font-size: 20px;
+				background-color: #279;
+				color: #fff;
+				border: 0px;
+				border-radius: 3px;
+				padding: 20px;
+				cursor: pointer;
+				margin-bottom: 20px;
 			}
-			#score-output {
-				background-color: #11cc1ac2;
-				border-radius: 0.75rem;
-				padding: 0.25rem;
-				margin: 0.25rem;
+			#submit:hover {
+				background-color: #38a;
 			}
 		</style>
-		<title>Quiz</title>
 	</head>
 	<body>
-		<div class="heading">
-			<h1>Quiz</h1>
-
-			<div class="score-display">
-				<p><span id="score-output">10</span></p>
-			</div>
-		</div>
-		<div class="quiz-main-container">
-			<div>
-				<p id="question1">Display the question here</p>
-			</div>
-			<div>
-				<p id="option1">This is the option1</p>
-			</div>
-			<div>
-				<p id="option2">This is the option2</p>
-			</div>
-			<div>
-				<p id="option3">This is the option3</p>
-			</div>
-			<div>
-				<p id="option4">This is the option4</p>
-			</div>
-			<div class="buttons">
-				<input type="button" value="Next Question" onclick="" />
-				<input type="button" value="Reset" onclick="resetProgram()" />
-			</div>
-		</div>
-		<input
-			type="button"
-			value="Start"
-			onclick="startProgram()"
-			id="start-button" />
-
+		<div id="quiz"></div>
+		<button id="submit">Submit Quiz</button>
+		<div id="results"></div>
 		<script src="quiz-code.js"></script>
 	</body>
 </html>

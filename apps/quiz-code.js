@@ -1,106 +1,116 @@
-//declarations for the questions and answers
-const question1 = document.getElementById("question1");
-const option1 = document.getElementById("option1");
-const option2 = document.getElementById("option2");
-const option3 = document.getElementById("option3");
-const option4 = document.getElementById("option4");
+(function () {
+	function buildQuiz() {
+		// variable to store the HTML output
+		const output = [];
 
-// event listeners for options
-// option1.addEventListener("click", touchElement);
-// option2.addEventListener("click", touchElement);
-// option3.addEventListener("click", touchElement);
-// option4.addEventListener("click", touchElement);
-// event listener for the question
-question1.addEventListener("click", touchElement);
-//Questions
-const Questions = [
-	{
-		id: 0,
-		q: "What is capital of India?",
-		a: [
-			{ text: "gandhinagar", isCorrect: false },
-			{ text: "Surat", isCorrect: false },
-			{ text: "Delhi", isCorrect: true },
-			{ text: "mumbai", isCorrect: false },
-		],
-	},
-	{
-		id: 1,
-		q: "What is the capital of Thailand?",
-		a: [
-			{ text: "Lampang", isCorrect: false },
-			{ text: "phuket", isCorrect: false },
-			{ text: "Ayutthaya", isCorrect: false },
-			{ text: "Bangkok", isCorrect: true },
-		],
-	},
-	{
-		id: 2,
-		q: "What is the capital of Gujarat",
-		a: [
-			{ text: "surat", isCorrect: false },
-			{ text: "vadodara", isCorrect: false },
-			{ text: "gandhinagar", isCorrect: true },
-			{ text: "rajkot", isCorrect: false },
-		],
-	},
-];
-const optionList = [option1, option2, option3, option4];
-// simple functions
-function startProgram() {
-	const quizMainContainer = document.querySelector(".quiz-main-container");
-	quizMainContainer.style.display = "block";
-	displayQuiz();
-}
+		// for each question...
+		myQuestions.forEach((currentQuestion, questionNumber) => {
+			// variable to store the list of possible answers
+			const answers = [];
 
-function displayQuiz() {
-	const startButton = document.getElementById("start-button");
-	startButton.style.display = "none";
-	const score = document.querySelector(".score-display");
-	score.style.display = "flex";
-	const question = document.getElementById("question1");
-	const option1 = document.getElementById("option1");
-	const option2 = document.getElementById("option2");
-	const option3 = document.getElementById("option3");
-	const option4 = document.getElementById("option4");
-	question.innerText = Questions[0].q;
+			// and for each available answer...
+			for (letter in currentQuestion.answers) {
+				// ...add an HTML radio button
+				answers.push(
+					`<label>
+				<input type="radio" name="question${questionNumber}" value="${letter}">
+				${letter} :
+				${currentQuestion.answers[letter]}
+			  </label>`
+				);
+			}
 
-	for (let index = 0; index < 4; index++) {
-		optionList[index].innerText = Questions[0].a[index].text;
+			// add this question and its answers to the output
+			output.push(
+				`<div class="question"> ${currentQuestion.question} </div>
+			<div class="answers"> ${answers.join("")} </div>`
+			);
+		});
+
+		// finally combine our output list into one string of HTML and put it on the page
+		quizContainer.innerHTML = output.join("");
 	}
-}
 
-// touch element function
-function touchElement() {
-	let id = event.target.id;
-	let output = document.getElementById(id);
-	console.log(
-		"The id of the element touched is " +
-			output.id +
-			" " +
-			"and the output is returned as a " +
-			typeof output.id +
-			" datatype." +
-			"\n" +
-			"the contents are " +
-			output.innerText
-	);
-	return output.id;
-}
-// if wrong color red
-function colorRed() {
-	const element = document.getElementById(touchElement());
-	console.log(element);
-	element.style.backgroundColor = "red";
-}
-// if correct color green
-function colorGreen(id) {
-	const element = document.getElementById(touchElement());
-	console.log(element);
-	element.style.backgroundColor = "green";
-}
-// big function
-function resetProgram() {
-	location.reload();
-}
-// end of the script
+	function showResults() {
+		// gather answer containers from our quiz
+		const answerContainers = quizContainer.querySelectorAll(".answers");
+
+		// keep track of user's answers
+		let numCorrect = 0;
+
+		// for each question...
+		myQuestions.forEach((currentQuestion, questionNumber) => {
+			// find selected answer
+			const answerContainer = answerContainers[questionNumber];
+			const selector = `input[name=question${questionNumber}]:checked`;
+			const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+			// if answer is correct
+			if (userAnswer === currentQuestion.correctAnswer) {
+				// add to the number of correct answers
+				numCorrect++;
+
+				// color the answers green
+				answerContainers[questionNumber].style.color = "green";
+			}
+			// if answer is wrong or blank
+			else {
+				// color the answers red
+				answerContainers[questionNumber].style.color = "red";
+			}
+		});
+
+		// show number of correct answers out of total
+		resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+	}
+
+	const quizContainer = document.getElementById("quiz");
+	const resultsContainer = document.getElementById("results");
+	const submitButton = document.getElementById("submit");
+	const myQuestions = [
+		{
+			question: "Who invented JavaScript?",
+			answers: {
+				a: "Douglas Crockford",
+				b: "Sheryl Sandberg",
+				c: "Brendan Eich",
+			},
+			correctAnswer: "c",
+		},
+		{
+			question: "What is the full form of HTML?",
+			answers: {
+				a: "HyperText Markup Language",
+				b: "HyperText Mark Language",
+				c: "HyperTrained Marked up Language",
+			},
+			correctAnswer: "a",
+		},
+		{
+			question: "What is the full form of CSS?",
+			answers: {
+				a: "Casting Style Sheets",
+				b: "Carriage Style Sheets",
+				c: "Caster Style Sheets",
+				d: "Cascading Style Sheets",
+			},
+			correctAnswer: "d",
+		},
+		{
+			question: "What is the web mostly written in?",
+			answers: {
+				a: "HTML",
+				b: "CSS",
+				c: "JavaScript",
+				d: "All the above",
+			},
+			correctAnswer: "d",
+		},
+	];
+
+	// Kick things off
+	buildQuiz();
+
+	// Event listeners
+	submitButton.addEventListener("click", showResults);
+})();
